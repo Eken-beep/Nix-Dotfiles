@@ -1,0 +1,10 @@
+configuration {
+  font: "Iosevka Nerd Font 12";
+
+
+  hide-scrollbar: true;
+  modes: [ combi ];
+  combi-modes: [ window, drun, run ];
+}
+
+@theme "cloud"
