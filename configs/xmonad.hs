@@ -18,11 +18,11 @@ import XMonad.Actions.WorkspaceNames
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers ( doFullFloat, isFullscreen )
-import XMonad.Hooks.EwmhDesktops 
+import XMonad.Hooks.EwmhDesktops
 
 -- Imports; Layouts
 import XMonad.Layout.Fullscreen
-    ( fullscreenEventHook, fullscreenManageHook, fullscreenSupport, fullscreenFull )
+    ( fullscreenEventHook, fullscreenManageHook, fullscreenSupport, fullscreenFull, fullscreenFloat )
 
 import XMonad.Layout.Gaps
   ( Direction2D (D, L, R, U),
@@ -58,7 +58,7 @@ myFocusedBorderColor = "#3d85c6"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = False
+myFocusFollowsMouse = True
 
 -- Whether clicking on a window to focus also passes the click to the window
 myClickJustFocuses :: Bool
@@ -74,10 +74,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm,               xK_Return), spawn myTerminal)
 
     -- launch dmenu
-    , ((modm,               xK_Escape     ), spawn "rofi -show run")
+    , ((modm,               xK_Escape), spawn "rofi -show run")
 
     -- Screenshot tool
     , ((modm,               xK_f     ), spawn "flameshot gui")
+
+    -- Keyboard layout switcher
+    , ((modm,               xK_i     ), spawn "setxkbmap se svdvorak")
+    , ((modm .|. shiftMask, xK_i     ), spawn "setxkbmap dvorak")
     
     -- close focused window
     , ((modm .|. shiftMask, xK_q     ), kill)
@@ -111,11 +115,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Master area
     , ((modm,               xK_h     ), sendMessage Shrink)
     , ((modm,               xK_l     ), sendMessage Expand)
-
-    -- Gaps 
-    -- , ((myModMask .|. controlMask, xK_g), sendMessage ToggleGaps)
-    -- , ((myModMask .|. controlMask, xK_Next), sendMessage $ ModifyGaps incGap)
-    -- , ((myModMask .|. controlMask, xK_Prior), sendMessage $ ModifyGaps decGap)
 
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
@@ -164,7 +163,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
---
 myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- mod-button1, Set the window to floating mode and move by dragging
@@ -182,7 +180,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     ]
 
 -- Layouts
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full )
+myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
   where
    -- default tiling algorithm partitions the screen into two panes
      tiled    = Tall nmaster delta ratio
@@ -203,8 +201,11 @@ myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full )
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , className =? "steam"          --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore 
+    , isFullscreen --> doFullFloat 
+    ]
 
 -- Layout hook
 myLayoutHook = spacing 9 $ smartBorders $ avoidStruts $ myLayout
@@ -212,48 +213,40 @@ myLayoutHook = spacing 9 $ smartBorders $ avoidStruts $ myLayout
 -- Event handling
 myEventHook = mempty
 
--- Status bars and logging
-myLogHook = return ()
-
 -- Startup hook
 myStartupHook = do
   spawnOnce "xrandr --output DP-0 --rate 144 --output DP-2 --right-of DP-0"
-  spawnOnce "setxkbmap se svdvorak"
+  spawnOnce "setxkbmap dvorak"
   spawnOnce "feh --recursive --bg-fill /home/edvin/wallpapers/pexels-eberhard-grossgasteiger-1287145.jpg &"
   spawnOnce "dunst &"
   spawnOnce "kitty"
-  spawnOnce "firefox"
+  spawnOnce "qutebrowser"
   spawnOnce "discord"
 
 -- Main funcion and defaults
 main = do
   xmproc0 <- spawnPipe "xmobar /home/edvin/.xmonad/xmobar.hs"
   xmproc1 <- spawnPipe "xmobar /home/edvin/.xmonad/xmobar2.hs"
-  xmonad $ docks $ defaults { 
-      logHook = dynamicLogWithPP $ def { ppOutput = hPutStrLn xmproc0 } 
+  xmonad $ docks $ ewmhFullscreen $ ewmh def {
+    -- simple stuff
+    terminal           = myTerminal,
+    focusFollowsMouse  = myFocusFollowsMouse,
+    clickJustFocuses   = myClickJustFocuses,
+    borderWidth        = myBorderWidth,
+    modMask            = myModMask,
+    workspaces         = myWorkspaces,
+    normalBorderColor  = myNormalBorderColor,
+    focusedBorderColor = myFocusedBorderColor,
+
+    -- key bindings
+    keys               = myKeys,
+    mouseBindings      = myMouseBindings,
+
+    -- hooks
+    layoutHook         = myLayoutHook,
+    manageHook         = myManageHook,
+    handleEventHook    = myEventHook <+> fullscreenEventHook,
+    startupHook        = myStartupHook,
+ 
+    logHook = dynamicLogWithPP $ def { ppOutput = hPutStrLn xmproc0 } 
   }
-  xmonad defaults
-  
-defaults = def {
-      -- simple stuff
-        terminal           = myTerminal,
-        focusFollowsMouse  = myFocusFollowsMouse,
-        clickJustFocuses   = myClickJustFocuses,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
-        workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
-
-      -- key bindings
-        keys               = myKeys,
-        mouseBindings      = myMouseBindings,
-
-      -- hooks
-        layoutHook         = myLayoutHook,
-        manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
-        logHook            = myLogHook,
-        startupHook        = myStartupHook
-    }
-
