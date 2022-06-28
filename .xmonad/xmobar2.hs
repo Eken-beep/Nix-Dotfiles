@@ -4,7 +4,7 @@ Config {
      font =         "xft:Iosevka Nerd Font:size=12:antialias=true"
    , bgColor =      "#1f1f1f"
    , fgColor =      "#dfdfdf"
-   , position =     Static { xpos = 10 , ypos = 2, width = 3420, height = 26 }
+   , position =     Static { xpos = 3450 , ypos = 2, width = 1900, height = 26 }
    , border =       BottomB
    , borderColor =  "#1f1f1f"
    , iconRoot =     "/home/edvin/.xmonad/"
@@ -12,7 +12,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " <icon=nixos.xpm/> <fc=#3d85c6>|</fc> %StdinReader% <fc=#3d85c6>|</fc> } %date% { %dynnetwork% <fc=#3d85c6>|</fc> %disku% <fc=#3d85c6>|</fc> Kernel: <fc=#3d85c6>%uname%</fc> <fc=#3d85c6>|</fc> %multicpu% <fc=#3d85c6>|</fc> %memory% "
+   , template = " <icon=nixos.xpm/> <fc=#3d85c6>|</fc> } %date% { %dynnetwork% <fc=#3d85c6>|</fc> %disku% <fc=#3d85c6>|</fc> Kernel: <fc=#3d85c6>%uname%</fc> <fc=#3d85c6>|</fc> %multicpu% <fc=#3d85c6>|</fc> %memory% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start

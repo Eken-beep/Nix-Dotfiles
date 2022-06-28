@@ -1,4 +1,4 @@
-  { lib, config, pkgs, ... }:
+{ lib, config, pkgs, commands, ... }:
 
 {
   programs.zsh = {
@@ -6,8 +6,8 @@
 
     shellAliases = {
       ll = "ls -la";
-      wpaper = "feh --recursive --bg-fill --randomize /home/edvin/wallpapers/*";
-      nixpkg = "nvim .config/nixpkgs/home.nix";
+      e = "nvim";
+
     };
 
     history = {
@@ -21,7 +21,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "python" "colored-man-pages" "sudo" "safe-paste"];
+      plugins = [ "git" "python" "colored-man-pages" "sudo" "safe-paste" ];
     };
 
     plugins = [
@@ -33,7 +33,8 @@
     ];
 
     initExtra = ''
-      source /home/edvin/.p10k.zsh
+      source /home/edvin/.p10k.zsh  
+      
     '';
   };
 }

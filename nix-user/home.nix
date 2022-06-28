@@ -15,6 +15,9 @@
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;
 
+  # Enabling playerctl to control videos and music with the mediakeys
+  services.playerctld.enable = true;
+
   # Imports of modules
   imports = [
     ./zsh.nix
@@ -23,6 +26,7 @@
     ./picom.nix
     ./qute.nix
     ./git.nix
+    ./dunst.nix
   ];
 
   # Programs
@@ -39,22 +43,24 @@
     firefox
     chromium
 
-    discord
-
     spotify
 
     tdesktop
     signal-desktop
+    discord
 
     gimp
     inkscape
-    libreoffice-fresh
     onlyoffice-bin
+    gnome-latex
+    cozy
 
     qbittorrent
 
     obs-studio
     arduino
+
+    freetube
 
     # Mining
     monero-gui
@@ -64,6 +70,7 @@
     xmobar
     dmenu
     rofi
+    dunst
     flameshot
     lxappearance 
 
@@ -74,6 +81,8 @@
     feh
     appimage-run
     unzip
+    wiki-tui
+    matrixcli
     
     # gnome things
     gnome.gnome-tweaks

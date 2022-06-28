@@ -20,4 +20,7 @@ config.bind('<F11>',
     'config-cycle statusbar.show always never')
 
 # Search engine
-c.url.searchengines["g"] = "https://www.startpage.com/sp/search?query=%s"
+c.url.searchengines = {
+        'DEFAULT':   'https://www.startpage.com/sp/search?query={}'
+}
+

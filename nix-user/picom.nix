@@ -8,11 +8,9 @@
     blur = true;
     experimentalBackends = true;
     opacityRule = [
-      "100:class_g   *?= 'Firefox'"
-      "100:class_g   *?= 'discord'"
+      "100:class_g   *?= 'Firefox'" 
       "100:class_g   *?= 'Minecraft* 1.18.2'" 
-      "95:class_g   *?= 'Deadd-notification-center'"
-      "75:class_g   *?= 'dmenu'"
+      "75:class_g   *?= 'discord'" 
     ];
     extraOptions = ''
       blur-method = "dual_kawase";
@@ -21,7 +19,7 @@
       round-borders = 1;
       rounded-corners-exclude = [
         "class_g = 'xmobar'",
-        "class_g = 'dmenu'",
+        "class_g = 'Dunst'",
       ];
     '';
     fade = true;
