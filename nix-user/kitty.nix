@@ -6,11 +6,11 @@
 
     font = {
       package = pkgs.nerdfonts;
-      name = "Iosevka Nerd Font";
+      name = "FiraCode Nerd Font";
       size = 12;
     };
     
-    theme = "Molokai";
+    theme = "Brogrammer";
     # settings = {
     #   setting
     # };

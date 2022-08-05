@@ -138,7 +138,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm,               xK_Return), spawn myTerminal                                            )
     , ((modm,               xK_Escape), spawn "rofi -show drun"                                     )
     , ((modm,               xK_f     ), spawn "flameshot gui"                                       )
-    , ((modm,               xK_i     ), spawn "sh /home/edvin/.xmonad/assets/kbd.sh"                )
+    , ((modm,               xK_i     ), spawn "sh /home/edvin/.xmonad/kbd.sh"                       )
     , ((modm .|. shiftMask, xK_q     ), kill                                                        )
 
     -- Navigation
@@ -244,7 +244,15 @@ myLayoutHook = spacing 9 $ smartBorders $ avoidStruts $ myLayout
 myEventHook = mempty
 
 -- Startup hook
-myStartupHook = spawnOnce "sh /home/edvin/.xmonad/assets/startup.sh"
+myStartupHook = do
+  spawnOnce "xrandr --output DP-0 --rate 144 --output DP-2 --right-of DP-0"
+  spawnOnce "setxkbmap dvorak"
+  spawnOnce "feh --recursive --bg-fill ~/wallpapers/pexels-lumn-167699.jpg"
+  spawnOnce "kitty"
+  -- spawnOnce "qutebrowser"
+  spawnOnce "qutebrowser"
+  spawnOnce "freetube"
+  spawnOnce "discord"
 
 -- Configuration to set the defaults
 myConfig = def {

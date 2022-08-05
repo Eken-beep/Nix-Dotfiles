@@ -9,8 +9,8 @@
         width = 500;
         height = 200;
         origin = "top-left";
-        offset = "9x38";
-        corner_radius = 8;
+        offset = "8x36";
+        corner_radius = 12;
 
         follow = "keyboard";
 

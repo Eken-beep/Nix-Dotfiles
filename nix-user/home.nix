@@ -17,16 +17,24 @@
 
   # Enabling playerctl to control videos and music with the mediakeys
   services.playerctld.enable = true;
+  
+  # Eww
+  programs.eww = {
+    enable = true;
+    configDir = /home/edvin/.config/eww;
+  };
 
   # Imports of modules
   imports = [
-    ./zsh.nix
-    ./kitty.nix
-    ./neovim.nix
-    ./picom.nix
-    ./qute.nix
-    ./git.nix
-    ./dunst.nix
+      ./dunst.nix 
+      ./git.nix 
+      ./kitty.nix 
+      ./mpd.nix 
+      ./neovim.nix 
+      ./picom.nix 
+      ./qute.nix 
+      ./vim.nix 
+      ./zsh.nix
   ];
 
   # Programs
@@ -43,6 +51,8 @@
     firefox
     chromium
 
+    alacritty
+
     spotify
 
     tdesktop
@@ -53,7 +63,11 @@
     inkscape
     onlyoffice-bin
     gnome-latex
+
+    feh
     cozy
+    mpv
+    pavucontrol
 
     qbittorrent
 
@@ -62,9 +76,12 @@
 
     freetube
 
-    # Mining
-    monero-gui
-    xmrig
+    keepassxc
+    protonmail-bridge
+
+    # package sets
+    # haskellPackages.movie-monad
+    python310Packages.adblock
 
     # Stooooph
     xmobar
@@ -73,16 +90,19 @@
     dunst
     flameshot
     lxappearance 
+    xlockmore
+    wine
 
     pfetch
     neofetch
     ranger
     signal-cli
-    feh
     appimage-run
     unzip
     wiki-tui
     matrixcli
+    zlib
+    pkg-config
     
     # gnome things
     gnome.gnome-tweaks

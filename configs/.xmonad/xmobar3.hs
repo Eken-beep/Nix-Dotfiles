@@ -5,7 +5,7 @@ Config {
      font =         "xft:Iosevka Nerd Font:size=12:antialias=true"
    , bgColor =      "#1f1f1f"
    , fgColor =      "#dfdfdf"
-   , position =     Static { xpos = 0 , ypos = 0, width = 3440, height = 26 }
+   , position =     TopW L 100
    , border =       BottomB
    , borderColor =  "#1f1f1f"
    , iconRoot =     "/home/edvin/.xmonad/"
@@ -13,7 +13,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %_XMONAD_LOG_1% } %date% { %dynnetwork% <fc=#3d85c6>|</fc> %kbd% <fc=#3d85c6>|</fc> %disku% <fc=#3d85c6>|</fc> Kernel: <fc=#3d85c6>%uname%</fc> <fc=#3d85c6>|</fc> %multicpu% <fc=#3d85c6>|</fc> %memory% "
+   , template = " %kbd% \n %multicpu% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -40,7 +40,7 @@ Config {
                              ] 10
 
         -- cpu activity monitor
-        , Run MultiCpu       [ "--template" , "Cpu: <total>%"
+        , Run MultiCpu       [ "--template" , "<total>%"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
                              , "--low"      , "#3097f8"
@@ -66,13 +66,13 @@ Config {
                              , "--high"     , "#004587"
                              ] 10
 	
-	    -- kernel version
-	    , Run Com "uname" ["-r"] "" 1000
+	   -- kernel version
+	   , Run Com "uname" ["-r"] "" 1000
 
         -- disk usage
-	    , Run DiskU          [("/", "nvme0n1p3: <fc=#3d85c6><free></fc>")]
-	                     ["-L", "20", "-H", "50", "-m", "1", "-p", "3"]
-	                     20
+	   , Run DiskU          [("/", "nvme0n1p3: <fc=#3d85c6><free></fc>")]
+	                    ["-L", "20", "-H", "50", "-m", "1", "-p", "3"]
+	                    20
         -- battery monitor
         , Run Battery        [ "--template" , "Batt: <acstatus>"
                              , "--Low"      , "10"        -- units: %
@@ -100,8 +100,7 @@ Config {
                              ]
         
     	-- Workspace indicator/Input Reader
-	    , Run XPropertyLog "_XMONAD_LOG_1"
+	   , Run XPropertyLog "_XMONAD_LOG_1"
 
         ]
    }
-
