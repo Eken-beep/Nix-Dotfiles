@@ -4,8 +4,7 @@
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [ 
-      vim-airline 
-      vim-airline-themes
+      lualine-nvim
       surround 
       nvim-treesitter
       
@@ -20,13 +19,68 @@
 
     withPython3 = true;
 
-    extraConfig = ''
+    viAlias = true;
+
+    extraPackages = with pkgs; [
+      rnix-lsp
+      haskell-language-server
+      sumneko-lua-language-server
+      nodePackages.bash-language-server
+      rls
+      ccls
+    ];
+
+    coc.enable = true;
+    coc.settings = {
+      "suggest.noselect" = true;
+      "suggest.enablePreview" = true;
+      "suggest.enablePreselect" = false;
+      "suggest.disableKind" = true;
+      languageserver = {
+        haskell = {
+          command = "haskell-language-server-wrapper";
+          args = [ "--lsp" ];
+          rootPatterns = [
+            "*.cabal"
+            "stack.yaml"
+            "cabal.project"
+            "package.yaml"
+            "hie.yaml"
+          ];
+          filetypes = [ "haskell" "lhaskell" ];
+        };
+        
+        lua = {
+          command = "lua-language-server";
+          filetypes = [ "lua" ];
+        };
+
+        bash = {
+          command = "bash-language-server";
+          args = [ "start" ];
+          filetypes = [ "shell" ];
+        };
+
+        nix = {
+          command = "rnix-lsp";
+          filetypes = [ "nix" ];
+        };
+
+        rust = {
+          command = "rls";
+          filetypes = [ "rust" ];
+        };
+      };
+    };
+    extraConfig = "lua << EOF\n" + builtins.readFile ./init.lua + "\nEOF";
+  };
+}
+/*    ''
       set number
       syntax enable
       filetype plugin indent on
       set expandtab
       set smarttab
-      set shiftwidth=4
       set tabstop=4
       set laststatus=2
 
@@ -61,9 +115,7 @@
       let g:cabal_indent_section = 2
     '';
 
-  };
-}
-/*
+
       highlight Normal           guifg=#dfdfdf ctermfg=15   guibg=#282c34 ctermbg=none  cterm=none
       highlight LineNr           guifg=#5b6268 ctermfg=8    guibg=#282c34 ctermbg=none  cterm=none
       highlight CursorLineNr     guifg=#202328 ctermfg=7    guifg=#5b6268 ctermbg=8     cterm=none
