@@ -23,10 +23,10 @@ import XMonad.Hooks.EwmhDesktops
 
 -- Imports; Layouts
 import XMonad.Layout.LayoutModifier
-import XMonad.Layout.CenteredMaster
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Grid
 
 import Graphics.X11.ExtraTypes.XF86
 
@@ -60,7 +60,7 @@ myFocusedBorderColor = "#3d85c6"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = True
+myFocusFollowsMouse = False
 
 -- Whether clicking on a window to focus also passes the click to the window
 myClickJustFocuses :: Bool
@@ -71,8 +71,9 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 -- Workspace list
-myWorkspaces    = ["I","II","III","IV","V","VI","VII","VIII","IX"]
+myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
+-- Main function
 main = xmonad
      . ewmhFullscreen
      . ewmh
@@ -85,10 +86,10 @@ xmobar2 = statusBarPropTo "_XMONAD_LOG_2" "xmobar /home/edvin/.xmonad/xmobar2.hs
 
 myPP = xmobarPP 
       -- Properties of current workspace
-    { ppCurrent = xmobarColor colorPrimary "" . wrap "<box type=Bottom width=2> " " </box>"
+    { ppCurrent = xmobarColor colorPrimary "" . wrap "<box type=Bottom width=2> "" </box>"
 
       -- Properties of workspace on other monitor
-    , ppVisible = xmobarColor colorSecondary "" . wrap "<box type=Bottom width=2> " " </box>"
+    , ppVisible = xmobarColor colorSecondary "" . wrap "<box type=Bottom width=2> "" </box>"
 
       -- Properties of hidden workspaces without windows
     , ppHiddenNoWindows = xmobarColor colorInactive ""
@@ -109,27 +110,27 @@ myPP = xmobarPP
 
 myPP2 = xmobarPP
       -- Properties of current workspace
-    { ppCurrent = xmobarColor colorSecondary "" . wrap "<box type=Bottom width=2> " " </box>"
+    { ppCurrent = xmobarColor colorSecondary "" . wrap "<box type=Bottom width=2> "" </box>"
 
       -- Properties of workspace on this monitor?
-    , ppVisible = xmobarColor colorPrimary "" . wrap "<box type=Bottom width=2> " " </box>"
+    , ppVisible = xmobarColor colorPrimary "" . wrap "<box type=Bottom width=2> "" </box>"
 
-      -- Properties of hidden workspaces without windows
+     -- Properties of hidden workspaces without windows
     , ppHiddenNoWindows = xmobarColor colorInactive ""
 
       -- Title of active window
-    , ppTitle = xmobarColor colorFG "" . shorten 40
-      
-      -- Separator character
-    , ppSep =  "<fc=#3d85c6> <fn=1>|</fn> </fc>"
+   , ppTitle = xmobarColor colorFG "" . shorten 40
+     
+     -- Separator character
+   , ppSep =  "<fc=#3d85c6> <fn=1>|</fn> </fc>"
 
-      -- Number of windows on workspace
-    , ppExtras = [windowCount]
+     -- Number of windows on workspace
+   , ppExtras = [windowCount]
 
-      -- Order of things
-    , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-    
-    }
+     -- Order of things
+   , ppOrder  = \(ws:l:t:ex) -> [ws, l] ++ ex ++ [t]
+   
+   }
 
 -- Key bindings
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -196,21 +197,21 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
-                                       >> windows W.shiftMaster))
+    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w
+                                      >> windows W.shiftMaster)
 
     -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
 
     -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
-                                       >> windows W.shiftMaster))
+    , ((modm, button3), \w -> focus w >> mouseResizeWindow w
+                                      >> windows W.shiftMaster)
 
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
 -- Layouts
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
+myLayout = avoidStruts (tiled ||| Grid ||| Full)
   where
    -- default tiling algorithm partitions the screen into two panes
      tiled    = Tall nmaster delta ratio
@@ -224,8 +225,8 @@ myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
      -- Percent of screen to increment by when resizing panes
      delta    = 3/100
 
-     -- ThreeCol = 1 (3/100) (1/2)
-     -- spiral = (6/7)
+     -- Grid layout 
+     -- GridRatio (4/3)
 
 -- Window rules
 myManageHook = composeAll

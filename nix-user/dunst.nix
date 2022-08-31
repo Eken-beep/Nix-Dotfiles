@@ -8,8 +8,8 @@
       global = {
         width = 500;
         height = 200;
-        origin = "top-left";
-        offset = "8x36";
+        origin = "top-right";
+        offset = "8x8";
         corner_radius = 12;
 
         follow = "keyboard";

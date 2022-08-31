@@ -1,0 +1,65 @@
+*{
+    all:unset;
+}
+
+.dockl{
+    all: unset;
+    border-radius: 30px;
+    border: 4px solid #3D85C6;
+    background: rgb(31, 31, 31, .60);
+}
+
+.dockr{
+    all: unset;
+    border-radius: 30px;
+    border: 4px solid #3D85C6;
+    background: rgb(31, 31, 31, .5);
+}
+
+.icon{
+    font-size: 50;
+    padding-top: 5;
+}
+
+.sep{
+    font-size: 10;
+    color: rgb(255, 255, 255, .5);
+}
+
+.discord{
+    font-size: 32;
+    padding-top: 5;
+}
+
+.time{
+    font-size: 24;
+}
+
+.date{
+    font-size: 24;
+}
+
+.kbd{
+    font-size: 24;
+}
+
+.sys{
+    font-size: 20;
+    color: #3d85c6;
+}
+
+.radial-label{
+    font-size: 20;
+   	padding: 2rem;
+    background: rgb(31,31,31);
+    border-radius: 1rem;
+}
+
+.radial{
+    font-size: 20;
+    border-radius: 5px;
+}
+
+.ws{
+    font-size: 20;
+}

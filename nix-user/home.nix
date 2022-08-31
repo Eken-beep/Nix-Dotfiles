@@ -17,12 +17,6 @@
 
   # Enabling playerctl to control videos and music with the mediakeys
   services.playerctld.enable = true;
-  
-  # Eww
-  programs.eww = {
-    enable = true;
-    configDir = /home/edvin/.config/eww;
-  };
 
   # Imports of modules
   imports = [
@@ -58,6 +52,7 @@
     tdesktop
     signal-desktop
     discord
+    element-desktop
 
     gimp
     inkscape
@@ -68,6 +63,8 @@
     cozy
     mpv
     pavucontrol
+
+    vscode
 
     qbittorrent
 

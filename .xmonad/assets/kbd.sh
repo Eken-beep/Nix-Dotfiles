@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/zsh
+#!/bin/sh
 # Setting the layout variable with the current variable
 layout="$(setxkbmap -query | grep layout | awk '{print $2}')"
 

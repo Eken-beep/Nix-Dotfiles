@@ -11,8 +11,6 @@
       fadeDelta = 10;
       fadeSteps = [0.015 1.0];
 
-      shadow = true;
-
       experimentalBackends = true;
       backend = "glx";
       
@@ -35,7 +33,6 @@
           rounded-corners-exclude = [
               "class_g = 'Dunst'"
               "window_type = 'dock'"
-              "class_g = 'xmobar'"
           ];
       };
   };

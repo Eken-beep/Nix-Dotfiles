@@ -4,6 +4,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/nixos-module.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -49,8 +50,8 @@
 
     # Keymap
     layout = "us";
-    xkbVariant = "dvorak, ";
-    xkbOptions = "caps:escape";
+    xkbVariant = "dvorak";
+    xkbOptions = "caps:swapescape";
 
     # WM, DE and displaymanager
     desktopManager = {
@@ -73,6 +74,7 @@
         ];
       };
       qtile.enable = true;
+      icewm.enable = true;
     };
   };
  
@@ -96,7 +98,7 @@
   users = {
     users.edvin = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "input" "uinput" ];
     };
     defaultUserShell = pkgs.fish;
   };
@@ -159,6 +161,8 @@
     flameshot
     btop
     htop
+    eww
+    wmctrl
     
     # Programms
     firefox
@@ -203,6 +207,12 @@
     udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
     flatpak.enable = true;
     ratbagd.enable = true;
+
+    kmonad = {
+      enable = false;
+      package = import /home/edvin/.config/nixpkgs/drvs/kmonad.nix;
+      keyboards = /etc/nixos/modules/config.kbd;
+    };
   };
 
   # ?

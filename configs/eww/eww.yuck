@@ -1,0 +1,195 @@
+(defwindow dockl
+           :monitor 1
+           :geometry (geometry :x "10px"
+                               :y "0%"
+                               :width "80px"
+                               :height "1050px"
+                               :anchor "left center")
+           :stacking "bg"
+           :reserve (struts :distance "100px" :side "left")
+           :windowtype "dock"
+           :wm-ignore false
+  (items))
+
+(defwindow dockr
+           :monitor 0
+           :geometry (geometry :x "-10px"
+                               :y "0%"
+                               :width "80px"
+                               :height "1050px"
+                               :anchor "right center")
+           :stacking "bg"
+           :reserve (struts :distance "100px" :side "right")
+           :windowtype "dock"
+           :wm-ignore false
+  (items))
+
+(defwidget items []
+  (box :orientation "vertical"
+       :halign "center"
+       :valign "center"
+       :vexpand false
+       :space-evenly false
+       (launcher)
+       (tray)
+       ))
+
+;; Tray like widget thing ;;
+(defwidget tray []
+  (box      :orientation "v"
+            :class "tray"
+            :valign "end"
+            :space-evenly false
+            (box :class "sep" "-----------")
+            (box :class "sep" "")
+            (ws)
+            (box :class "sep" "")
+            (box :class "sep" "-----------")
+            (box :class "sep" "")
+            (kbd)
+            (box :class "sep" "")
+            (box :class "sep" "-----------")
+            (box :class "sep" "")
+            (sysinfo)
+            (box :class "sep" "")
+            (box :class "sep" "-----------")
+            (box :class "sep" "")
+            (date)
+            (box :class "sep" "")
+            (box :class "sep" "-----------")
+            (box :class "sep" "")
+            (time)))
+  
+;; Keymap widget
+(defwidget kbd []
+    (button :orientation "v"
+            :class "kbd"
+            :valign "end"
+            :onclick "~/.xmonad/assets/kbd.sh" 
+            currentkbd))
+
+(defpoll currentkbd :interval "1s" "~/.config/eww/assets/scripts/currentkbd.sh")
+
+;; Cpu and ram thing
+(defwidget sysinfo []
+    (box    :orientation "v"
+            :class "sys"
+            :valign "center"
+            :space-evenly false
+            (radialmeter :text "" :value {EWW_DISK["/"].used_perc})
+
+            (radialmeter :text "" :value used_mem)
+
+            (radialmeter :text "" :value {EWW_CPU.avg})))
+
+(defpoll used_mem :interval "1s" "~/.config/eww/assets/scripts/mem.sh")
+
+;; Circular Systray Widgets
+(defwidget radialmeter [value text]
+    (circular-progress :value value
+        :class "radial"
+        :start-angle 0
+        :thickness 10
+        (label :text text
+            :class "radial-label"
+            :limit-width 10
+            :show_truncated false
+            :wrap false
+            :angle 0.0)))
+
+;; Workspace shower ;;
+(defwidget ws []
+    (box   :orientation "v"
+           :valign "center"
+           :halign "center"
+           :class "ws"
+           (box "")
+           currentws))
+(defpoll currentws :interval "0.1s" "~/.config/eww/assets/scripts/ws.sh")
+
+(defwidget metric [font-size]
+  (box :class "metric" 
+       :orientation "v"
+    (label :class "metric-icon" 
+           :style {font-size != "" ? "font-size: ${font-size}rem;" : ""})
+    (children)))
+
+;; Clock Widgets ;;
+(defwidget date []
+	(box	:orientation "v" 
+			:class "date" 
+			:valign "end"
+            :height "50px"
+	(box	week_day)
+	(box	calendar_day)
+	(box	calendar_month)))
+
+(defwidget time []
+	(box	:orientation "v" 
+			:class "time" 
+			:valign "end"
+            :height "50px"
+	(box	hour)
+	(box	min)))
+
+(defpoll hour	:interval "1s"	"date '+%H'")
+(defpoll min	:interval "1s"	"date '+%M'")
+(defpoll calendar_day :interval "10h" "date '+%d'")
+(defpoll calendar_month :interval "10h" "date '+%m'")
+(defpoll week_day :interval "10h" "date '+%a'")
+
+;; App launcher widget ;;
+(defwidget launcher []
+  (box :orientation "vertical"
+       :halign "center"
+       :valign "start"
+    (button :onclick "~/.config/eww-bar/assets/scripts/kitty.sh"
+            :tooltip "Kitty"
+            :class "icon kitty"
+            "")
+
+    (button :onclick "~/.config/eww-bar/assets/scripts/firefox.sh"
+            :tooltip "Firefox"
+            :class "icon firefox"
+            "")
+
+;;    (button :onclick "~/.config/eww-bar/assets/scripts/qute.sh"
+;;            :tooltip "Qutebrowser"
+;;            :class "icon qute"
+;;            "")
+;;
+;;    (button :onclick "~/.config/eww-bar/assets/scripts/freetube.sh"
+;;            :tooltip "Freetube"
+;;            :class "icon yt"
+;;            "")
+
+    (button :onclick "~/.config/eww-bar/assets/scripts/nautilus.sh"
+            :tooltip "Nautilus"
+            :class "icon files"
+            "")
+
+    (button :onclick "~/.config/eww-bar/assets/scripts/element.sh"
+            :tooltip "Element Desktop"
+            :class "icon element"
+            "")
+
+;;    (button :onclick "~/.config/eww-bar/assets/scripts/discord.sh"
+;;            :tooltip "Discord"
+;;            :class "discord"
+;;            "")
+
+    (button :onclick "~/.config/eww-bar/assets/scripts/steam.sh"
+            :tooltip "Steam"
+            :class "icon element"
+            "")
+
+;;    (button :onclick "~/.config/eww-bar/assets/scripts/polymc.sh"
+;;            :tooltip "Polymc"
+;;            :class "icon polymc"
+;;            "")
+
+    (button :onclick "~/.config/eww-bar/assets/scripts/spotify.sh"
+            :tooltip "Spotify"
+            :class "icon spotify"
+            "")))
+
