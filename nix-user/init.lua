@@ -46,7 +46,7 @@ map('i', '<C-A>', '<ESC>I')
 
 -- Quicksave & exit
 map('n', '<C-q>', ':wq<CR>')
-map('n', '<C-S-q>', ':q!<CR>')
+map('n', '<C-x>', ':q!<CR>')
 map('n', '<C-s>', ':w<CR>')
 
 -- Coc.nvim config that for some reason has to be in vimscript...
@@ -58,5 +58,7 @@ highlight FgCocErrorFloatBgCocFloating ctermfg=59 ctermbg=White guifg=White guib
 
 " Coc tab to trigger completion, vscode like behaviour
 " but it failed
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
 
 ]])

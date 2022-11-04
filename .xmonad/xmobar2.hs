@@ -1,7 +1,7 @@
 Config { 
 
    -- appearance
-     font =         "xft:Iosevka Nerd Font:size=12:antialias=true"
+     font =         "xft:FiraCode Nerd Font:size=12:antialias=true"
    , bgColor =      "#1f1f1f"
    , fgColor =      "#dfdfdf"
    , position =     Static { xpos = 3440 , ypos = 0, width = 1920, height = 26 }

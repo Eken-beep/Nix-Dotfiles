@@ -26,7 +26,6 @@
       haskell-language-server
       sumneko-lua-language-server
       nodePackages.bash-language-server
-      rls
       ccls
     ];
 

@@ -2,7 +2,7 @@ Config {
 
    -- Display the icon: <icon=nixos.xpm/> <fc=#3d85c6>|</fc>
    -- appearance
-     font =         "xft:Iosevka Nerd Font:size=12:antialias=true"
+     font =         "xft:FiraCode Nerd Font:size=12:antialias=true"
    , bgColor =      "#1f1f1f"
    , fgColor =      "#dfdfdf"
    , position =     Static { xpos = 0 , ypos = 0, width = 3440, height = 26 }

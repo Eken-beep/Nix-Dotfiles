@@ -34,12 +34,14 @@
   # Programs
   home.packages = with pkgs; [
     # Games
-    polymc
+    prismlauncher
     steam
     lutris
     amidst
     cubiomes-viewer
     minecraft
+    heroic
+    grapejuice
 
     # Gui stuff
     firefox
@@ -76,6 +78,8 @@
     keepassxc
     protonmail-bridge
 
+    kicad
+
     # package sets
     # haskellPackages.movie-monad
     python310Packages.adblock
@@ -83,6 +87,7 @@
     # Stooooph
     xmobar
     dmenu
+    libsForQt5.qtstyleplugin-kvantum
     rofi
     dunst
     flameshot
@@ -93,6 +98,7 @@
     pfetch
     neofetch
     ranger
+    tetex
     signal-cli
     appimage-run
     unzip
