@@ -26,16 +26,6 @@
       }
 
       {
-        name = "sudope";
-        src = pkgs.fetchFromGitHub {
-          owner = "oh-my-fish";
-          repo = "plugin-sudope";
-          rev = "0";
-          sha256 = "0";
-        };
-      }
-
-      {
         name = "done";
         src = pkgs.fishPlugins.done;
       }
@@ -44,6 +34,6 @@
         name = "grc";
         src = pkgs.fishPlugins.grc;
       }
-    ]
+    ];
   };
 }
