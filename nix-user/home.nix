@@ -42,28 +42,25 @@
     minecraft
     heroic
     grapejuice
+    superTux
+    superTuxKart
 
     # Gui stuff
     firefox
     chromium
 
-    alacritty
-
     spotify
+    spicetify-cli
 
     tdesktop
     signal-desktop
     discord
-    element-desktop
+    discocss
 
     gimp
-    inkscape
-    onlyoffice-bin
-    gnome-latex
+    kdenlive
 
     feh
-    cozy
-    mpv
     pavucontrol
 
     vscode
@@ -72,50 +69,63 @@
 
     obs-studio
     arduino
+     
+    libreoffice
 
     freetube
 
     keepassxc
-    protonmail-bridge
 
     kicad
 
-    # package sets
-    # haskellPackages.movie-monad
-    python310Packages.adblock
+    boxes
 
     # Stooooph
     xmobar
+    eww-wayland
     dmenu
+    xwallpaper
+    hyprpaper
+    pscircle
     libsForQt5.qtstyleplugin-kvantum
-    rofi
     dunst
     flameshot
     lxappearance 
     xlockmore
     wine
+    playerctl
+    filezilla
 
+    socat
+    jq
+    python3Full
     pfetch
     neofetch
     ranger
     tetex
-    signal-cli
-    appimage-run
     unzip
-    wiki-tui
-    matrixcli
     zlib
     pkg-config
+    python310Packages.youtube-dl
+    
+    cabal-install
+    ghc
+
+    papirus-icon-theme
+    papirus-folders
     
     # gnome things
+    gtk-engine-murrine
     gnome.gnome-tweaks
+    gnome.gnome-themes-extra
     gnomeExtensions.blur-my-shell
     gnomeExtensions.vitals
-    gnomeExtensions.forge
+    gnomeExtensions.paperwm
     gnomeExtensions.extension-list
     gnomeExtensions.workspace-indicator-2
+    gnomeExtensions.rounded-window-corners
+    gnomeExtensions.gsconnect
     # gnomeExtensions.dash-to-dock
     # gnomeExtensions.material-shell
-    
   ];
 }
